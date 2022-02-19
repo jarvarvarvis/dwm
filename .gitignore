@@ -1,0 +1,8 @@
+# You have to supply a wallpaper yourself
+wallpaper.png
+
+# Ignore object files
+*.o
+
+# Ignore dwm executable
+dwm
