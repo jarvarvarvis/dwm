@@ -1,2 +1,2 @@
 #!/bin/sh
-make clean install
+make clean dwmsb install
