@@ -7,4 +7,4 @@ feh --bg-scale ~/dwm/wallpaper.png
 setxkbmap de
 
 # Start custom dwm status bar process with 5 second delay
-dwmsb -d 5 &
+./dwmsb -d 5 &
