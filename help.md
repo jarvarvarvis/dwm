@@ -48,15 +48,11 @@ Mod + Space        | Toggle floating for the currently focused client
 
 ### Tags
 
-Mod + 1            | Tag 1
-Mod + 2            | Tag 2
-Mod + 3            | Tag 3
-Mod + 4            | Tag 4
-Mod + 5            | Tag 5
-Mod + 6            | Tag 6
-Mod + 7            | Tag 7
-Mod + 8            | Tag 8
-Mod + 9            | Tag 9
+Available tags: 1 - 9
+
+Mod + [tag]         | Switch to tag [tag]
+Mod + Shift + [tag] | Move the focused client to tag [tag]
+Mod + Ctrl + [tag]  | Toggle view for tag [tag] in the current tag
 
 ### Session
 
