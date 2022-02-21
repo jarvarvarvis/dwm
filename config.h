@@ -98,9 +98,9 @@ static Key keys[] = {
 	{ MODKEY,                       XK_space,  togglefloating, {0} },
 
 	// Change window layout
-	// { MODKEY,                       XK_t,      setlayout,      {.v = &layouts[0]} }, // Tiling
-	// { MODKEY,                       XK_f,      setlayout,      {.v = &layouts[1]} }, // No layout / Floating
-	// { MODKEY,                       XK_m,      setlayout,      {.v = &layouts[2]} }, // Monocle
+	{ MODKEY|Mod1Mask,              XK_t,      setlayout,      {.v = &layouts[0]} }, // Tiling
+	{ MODKEY|Mod1Mask,              XK_f,      setlayout,      {.v = &layouts[1]} }, // No layout / Floating
+	{ MODKEY|Mod1Mask,              XK_m,      setlayout,      {.v = &layouts[2]} }, // Monocle
 
 	// Workspaces
 	TAGKEYS(                        XK_1,                      0)

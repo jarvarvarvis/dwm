@@ -21,13 +21,19 @@ Mod + Alt + h      | Show this help document
 Mod + j            | Change focus to next client
 Mod + k            | Change focus to previous client
 
-## Master area
+### Master area
 
 Mod + Shift + i    | Increment number of clients in the master area
 Mod + Shift + d    | Decrement number of clients in the master area
 
 Mod + Shift + h    | Decrement the factor of the master area
 Mod + Shift + l    | Increment the factor of the master area
+
+### Layout switching
+
+Mod + Ctrl + t     | Tiling layout (windows are oriented in a grid-like fashion)
+Mod + Ctrl + f     | Floating layout (windows can be moved around freely)
+Mod + Ctrl + m     | Monocle layout (only the focused window is visible in fullscreen)
 
 ### Gaps
 
