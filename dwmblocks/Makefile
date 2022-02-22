@@ -19,9 +19,6 @@ options:
 dwmblocks: dwmblocks.c blocks.h
 	${CC} -o dwmblocks dwmblocks.c ${CFLAGS} ${LDFLAGS}
 
-blocks.h:
-	cp blocks.def.h $@
-
 clean:
 	rm -f *.o *.gch dwmblocks
 
