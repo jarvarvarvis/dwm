@@ -1369,8 +1369,15 @@ resizemouse(const Arg *arg)
 			nw = MAX(ev.xmotion.x - ocx - 2 * c->bw + 1, 1);
 			nh = MAX(ev.xmotion.y - ocy - 2 * c->bw + 1, 1);
 
+			// Default resizing
 			if (!selmon->lt[selmon->sellt]->arrange || c->isfloating)
 				resize(c, c->x, c->y, nw, nh, 1);
+			
+			// mfact resizing
+			else {
+				selmon->mfact = (double) (ev.xmotion.x_root - selmon->mx) / (double) selmon->ww;
+				arrange(selmon);
+			}
 			break;
 		}
 	} while (ev.type != ButtonRelease);
@@ -1378,8 +1385,6 @@ resizemouse(const Arg *arg)
 	if (c->isfloating || NULL == c->mon->lt[c->mon->sellt]->arrange) {
 		XWarpPointer(dpy, None, c->win, 0, 0, 0, 0, c->w + c->bw - 1, c->h + c->bw - 1);
 	} else {
-		selmon->mfact = (double) (ev.xmotion.x_root - selmon->mx) / (double) selmon->ww;
-		arrange(selmon);
 		XWarpPointer(dpy, None, root, 0, 0, 0, 0,
 			selmon->mx + (selmon->ww * selmon->mfact),
 			selmon->my + (selmon->wh / 2)
