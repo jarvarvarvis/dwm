@@ -1,6 +1,10 @@
 # You have to supply a wallpaper yourself
 wallpaper.png
 
+# Ignore .rej and .orig files created by patch
+*.orig
+*.rej
+
 # Ignore object files
 *.o
 
