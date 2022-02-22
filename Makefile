@@ -25,9 +25,6 @@ config.h:
 dwm: ${OBJ}
 	${CC} -o $@ ${OBJ} ${LDFLAGS}
 
-dwmsb:
-	gcc dwmsb.c -o dwmsb
-
 clean:
 	rm -f dwmsb
 	rm -f dwm ${OBJ} dwm-${VERSION}.tar.gz
