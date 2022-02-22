@@ -8,6 +8,5 @@ wallpaper.png
 # Ignore object files
 *.o
 
-# Ignore dwm and dwmsb executable
+# Ignore dwm executable
 dwm
-dwmsb
