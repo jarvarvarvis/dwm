@@ -65,7 +65,7 @@ static const char *termcmd[]  = { "kitty", NULL };
 static const char *helpcmd[]  = { "kitty", "less", "/usr/share/dwm/help.md", NULL };
 
 static Key keys[] = {
-	/* modifier                     key        function        argument */
+	/* modifier                     key        function         argument */
 	// Spawn keybinds
 	{ MODKEY,                       XK_d,      spawn,           {.v = dmenucmd } },  // dmenu
 	{ MODKEY,                       XK_t,      spawn,           {.v = termcmd } },   // terminal
