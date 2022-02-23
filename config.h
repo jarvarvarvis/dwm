@@ -73,9 +73,6 @@ static Key keys[] = {
 	// Show help
 	{ MODKEY|Mod1Mask,              XK_h,      spawn,           {.v = helpcmd } },
 
-	// Set client fullscreen state
-	{ MODKEY,                       XK_F11,    focusfullscreen, {0} },
-
 	// Change focus
 	{ MODKEY,                       XK_j,      focusstack,      {.i = +1 } },
 	{ MODKEY,                       XK_k,      focusstack,      {.i = -1 } },
@@ -84,13 +81,19 @@ static Key keys[] = {
 	{ MODKEY|ShiftMask,             XK_j,      rotatestack,     {.i = +1 } },
 	{ MODKEY|ShiftMask,             XK_k,      rotatestack,     {.i = -1 } },
 
-	// Change number of clients in the master area
-	{ MODKEY|ShiftMask,             XK_i,      incnmaster,      {.i = +1 } },
-	{ MODKEY|ShiftMask,             XK_d,      incnmaster,      {.i = -1 } },
-
 	// Change factor of master area
-	{ MODKEY|ShiftMask,             XK_h,      setmfact,        {.f = -0.05} },
-	{ MODKEY|ShiftMask,             XK_l,      setmfact,        {.f = +0.05} },
+	{ MODKEY|ControlMask,           XK_h,      setmfact,        {.f = -0.05} },
+	{ MODKEY|ControlMask,           XK_l,      setmfact,        {.f = +0.05} },
+	
+	// Change number of clients in the master area
+	{ MODKEY|ControlMask,           XK_i,      incnmaster,      {.i = +1 } },
+	{ MODKEY|ControlMask,           XK_d,      incnmaster,      {.i = -1 } },
+	{ MODKEY|ControlMask,           XK_0,      incnmaster,      {.i =  0 } },
+
+	// Change factor of clients
+	{ MODKEY|ControlMask,           XK_j,      setcfact,        {.f = +0.25 } },
+	{ MODKEY|ControlMask,           XK_k,      setcfact,        {.f = -0.25 } },
+	{ MODKEY|ControlMask,           XK_o,      setcfact,        {.f =  0.0  } },
 
 	// Change gap size
 	{ MODKEY,                       XK_minus,  setgaps,         {.i = -5 } },
@@ -102,6 +105,9 @@ static Key keys[] = {
 	
 	// Toggle floating for one single window
 	{ MODKEY,                       XK_space,  togglefloating,  {0} },
+
+	// Set client fullscreen state
+	{ MODKEY,                       XK_F11,    focusfullscreen, {0} },
 
 	// Change window layout
 	{ MODKEY|Mod1Mask,              XK_t,      setlayout,       {.v = &layouts[0]} }, // Tiling
@@ -119,7 +125,7 @@ static Key keys[] = {
 	TAGKEYS(                        XK_8,                       7)
 	TAGKEYS(                        XK_9,                       8)
 
-	// Quit dmenu
+	// Quit dwm
 	{ MODKEY|ShiftMask,             XK_e,      quit,            {0} },
 };
 

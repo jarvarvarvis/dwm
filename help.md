@@ -28,17 +28,18 @@ Mod + Shift + k    | Rotate the stack backwards, cycling all clients in the curr
 
 ### Master area
 
-Mod + Shift + i    | Increment number of clients in the master area
-Mod + Shift + d    | Decrement number of clients in the master area
+Mod + Control + h  | Decrement the factor of the master area
+Mod + Control + l  | Increment the factor of the master area
 
-Mod + Shift + h    | Decrement the factor of the master area
-Mod + Shift + l    | Increment the factor of the master area
+Mod + Control + i  | Increment number of clients in the master area
+Mod + Control + d  | Decrement number of clients in the master area
+Mod + Control + 0  | Reset the number of clients in the master area to 0
 
-### Layout switching
+### Client factor
 
-Mod + Ctrl + t     | Tiling layout (windows are oriented in a grid-like fashion)
-Mod + Ctrl + f     | Floating layout (windows can be moved around freely)
-Mod + Ctrl + m     | Monocle layout (only the focused window is visible in fullscreen)
+Mod + Control + j  | Increment the factor of the focused client
+Mod + Control + k  | Decrement the factor of the focused client
+Mod + Control + o  | Reset factor of the focused client
 
 ### Gaps
 
@@ -52,6 +53,12 @@ Mod + q            | Kill the currently focused client
 Mod + Space        | Toggle floating for the currently focused client
 Mod + F11          | Toggle client fullscreen state when F11 is not supported
 
+### Layout switching
+
+Mod + Alt + t     | Tiling layout (windows are oriented in a grid-like fashion)
+Mod + Alt + f     | Floating layout (windows can be moved around freely)
+Mod + Alt + m     | Monocle layout (only the focused window is visible in fullscreen)
+
 ### Tags
 
 Available tags: 1 - 9
@@ -62,4 +69,4 @@ Mod + Ctrl + [tag]  | Toggle view for tag [tag] in the current tag
 
 ### Session
 
-Mod + Shift + E    | Quit session
+Mod + Shift + e    | Quit session
