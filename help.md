@@ -70,3 +70,4 @@ Mod + Ctrl + [tag]  | Toggle view for tag [tag] in the current tag
 ### Session
 
 Mod + Shift + e    | Quit session
+Mod + Shift + r    | Restart session

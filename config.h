@@ -126,7 +126,8 @@ static Key keys[] = {
 	TAGKEYS(                        XK_9,                       8)
 
 	// Quit dwm
-	{ MODKEY|ShiftMask,             XK_e,      quit,            {0} },
+	{ MODKEY|ShiftMask,             XK_e,      quit,            {.i = 0} },
+	{ MODKEY|ShiftMask,             XK_r,      quit,            {.i = 1} }
 };
 
 /* button definitions */
