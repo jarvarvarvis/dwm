@@ -177,6 +177,7 @@ static void focus(Client *c);
 static void focusin(XEvent *e);
 static void focusmon(const Arg *arg);
 static void focusstack(const Arg *arg);
+static void focusfullscreen(const Arg *arg);
 static Atom getatomprop(Client *c, Atom prop);
 static int getrootptr(int *x, int *y);
 static long getstate(Window w);
@@ -910,6 +911,16 @@ focusstack(const Arg *arg)
 		focus(c);
 		restack(selmon);
 	}
+}
+
+void
+focusfullscreen(const Arg *arg) 
+{
+	if (!selmon->sel)
+		return;
+
+	// Toggle client fullscreen state
+	setfullscreen(selmon->sel, !selmon->sel->isfullscreen);
 }
 
 Atom

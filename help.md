@@ -50,6 +50,7 @@ Mod + 0            | Reset gap size
 
 Mod + q            | Kill the currently focused client
 Mod + Space        | Toggle floating for the currently focused client
+Mod + F11          | Toggle client fullscreen state when F11 is not supported
 
 ### Tags
 

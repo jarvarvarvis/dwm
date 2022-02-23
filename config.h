@@ -65,60 +65,61 @@ static const char *helpcmd[]  = { "kitty", "less", "/usr/share/dwm/help.md", NUL
 
 static Key keys[] = {
 	/* modifier                     key        function        argument */
-	// Spawn dmenu
-	{ MODKEY,                       XK_d,      spawn,          {.v = dmenucmd } },
-
-	// Spawn terminal
-	{ MODKEY,                       XK_t,      spawn,          {.v = termcmd } },
+	// Spawn keybinds
+	{ MODKEY,                       XK_d,      spawn,           {.v = dmenucmd } },  // dmenu
+	{ MODKEY,                       XK_t,      spawn,           {.v = termcmd } },   // terminal
 
 	// Show help
-	{ MODKEY|Mod1Mask,              XK_h,      spawn,          {.v = helpcmd } },
+	{ MODKEY|Mod1Mask,              XK_h,      spawn,           {.v = helpcmd } },
+
+	// Set client fullscreen state
+	{ MODKEY,                       XK_F11,    focusfullscreen, {0} },
 
 	// Change focus
-	{ MODKEY,                       XK_j,      focusstack,     {.i = +1 } },
-	{ MODKEY,                       XK_k,      focusstack,     {.i = -1 } },
+	{ MODKEY,                       XK_j,      focusstack,      {.i = +1 } },
+	{ MODKEY,                       XK_k,      focusstack,      {.i = -1 } },
 
 	// Rotate stack
-	{ MODKEY|ShiftMask,             XK_j,      rotatestack,    {.i = +1 } },
-	{ MODKEY|ShiftMask,             XK_k,      rotatestack,    {.i = -1 } },
+	{ MODKEY|ShiftMask,             XK_j,      rotatestack,     {.i = +1 } },
+	{ MODKEY|ShiftMask,             XK_k,      rotatestack,     {.i = -1 } },
 
 	// Change number of clients in the master area
-	{ MODKEY|ShiftMask,             XK_i,      incnmaster,     {.i = +1 } },
-	{ MODKEY|ShiftMask,             XK_d,      incnmaster,     {.i = -1 } },
+	{ MODKEY|ShiftMask,             XK_i,      incnmaster,      {.i = +1 } },
+	{ MODKEY|ShiftMask,             XK_d,      incnmaster,      {.i = -1 } },
 
 	// Change factor of master area
-	{ MODKEY|ShiftMask,             XK_h,      setmfact,       {.f = -0.05} },
-	{ MODKEY|ShiftMask,             XK_l,      setmfact,       {.f = +0.05} },
+	{ MODKEY|ShiftMask,             XK_h,      setmfact,        {.f = -0.05} },
+	{ MODKEY|ShiftMask,             XK_l,      setmfact,        {.f = +0.05} },
 
 	// Change gap size
-	{ MODKEY,                       XK_minus,  setgaps,        {.i = -5 } },
-	{ MODKEY,                       XK_plus,   setgaps,        {.i = +5 } },
-	{ MODKEY,                       XK_0,      setgaps,        {.i = GAP_RESET } },
+	{ MODKEY,                       XK_minus,  setgaps,         {.i = -5 } },
+	{ MODKEY,                       XK_plus,   setgaps,         {.i = +5 } },
+	{ MODKEY,                       XK_0,      setgaps,         {.i = GAP_RESET } },
 
 	// Kill the current client
-	{ MODKEY,                       XK_q,      killclient,     {0} },
+	{ MODKEY,                       XK_q,      killclient,      {0} },
 	
 	// Toggle floating for one single window
-	{ MODKEY,                       XK_space,  togglefloating, {0} },
+	{ MODKEY,                       XK_space,  togglefloating,  {0} },
 
 	// Change window layout
-	{ MODKEY|Mod1Mask,              XK_t,      setlayout,      {.v = &layouts[0]} }, // Tiling
-	{ MODKEY|Mod1Mask,              XK_f,      setlayout,      {.v = &layouts[1]} }, // No layout / Floating
-	{ MODKEY|Mod1Mask,              XK_m,      setlayout,      {.v = &layouts[2]} }, // Monocle
+	{ MODKEY|Mod1Mask,              XK_t,      setlayout,       {.v = &layouts[0]} }, // Tiling
+	{ MODKEY|Mod1Mask,              XK_f,      setlayout,       {.v = &layouts[1]} }, // No layout / Floating
+	{ MODKEY|Mod1Mask,              XK_m,      setlayout,       {.v = &layouts[2]} }, // Monocle
 
 	// Workspaces
-	TAGKEYS(                        XK_1,                      0)
-	TAGKEYS(                        XK_2,                      1)
-	TAGKEYS(                        XK_3,                      2)
-	TAGKEYS(                        XK_4,                      3)
-	TAGKEYS(                        XK_5,                      4)
-	TAGKEYS(                        XK_6,                      5)
-	TAGKEYS(                        XK_7,                      6)
-	TAGKEYS(                        XK_8,                      7)
-	TAGKEYS(                        XK_9,                      8)
+	TAGKEYS(                        XK_1,                       0)
+	TAGKEYS(                        XK_2,                       1)
+	TAGKEYS(                        XK_3,                       2)
+	TAGKEYS(                        XK_4,                       3)
+	TAGKEYS(                        XK_5,                       4)
+	TAGKEYS(                        XK_6,                       5)
+	TAGKEYS(                        XK_7,                       6)
+	TAGKEYS(                        XK_8,                       7)
+	TAGKEYS(                        XK_9,                       8)
 
 	// Quit dmenu
-	{ MODKEY|ShiftMask,             XK_e,      quit,           {0} },
+	{ MODKEY|ShiftMask,             XK_e,      quit,            {0} },
 };
 
 /* button definitions */
