@@ -42,7 +42,7 @@ install: all
 	sed "s/VERSION/${VERSION}/g" < dwm.1 > ${DESTDIR}${MANPREFIX}/man1/dwm.1
 	chmod 644 ${DESTDIR}${MANPREFIX}/man1/dwm.1
 	cp dwm.desktop /usr/share/xsessions/
-	mkdir /usr/share/dwm/
+	if [ ! -d /usr/share/dwm/ ]; then mkdir /usr/share/dwm/; fi
 	cp help.md /usr/share/dwm/
 
 uninstall:

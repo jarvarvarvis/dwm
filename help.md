@@ -21,6 +21,11 @@ Mod + Alt + h      | Show this help document
 Mod + j            | Change focus to next client
 Mod + k            | Change focus to previous client
 
+### Stack
+
+Mod + Shift + j    | Rotate the stack forwards, cycling all clients in the current tag
+Mod + Shift + k    | Rotate the stack backwards, cycling all clients in the current tag
+
 ### Master area
 
 Mod + Shift + i    | Increment number of clients in the master area
