@@ -169,6 +169,8 @@ static void detachstack(Client *c);
 static Monitor *dirtomon(int dir);
 static void drawbar(Monitor *m);
 static void drawbars(void);
+static void enqueue(Client *c);
+static void enqueuestack(Client *c);
 static void enternotify(XEvent *e);
 static void expose(XEvent *e);
 static void focus(Client *c);
@@ -199,6 +201,7 @@ static void resize(Client *c, int x, int y, int w, int h, int interact);
 static void resizeclient(Client *c, int x, int y, int w, int h);
 static void resizemouse(const Arg *arg);
 static void restack(Monitor *m);
+static void rotatestack(const Arg *arg);
 static void run(void);
 static void runAutostart(void);
 static void scan(void);
@@ -244,6 +247,7 @@ static int xerrorstart(Display *dpy, XErrorEvent *ee);
 static void zoom(const Arg *arg);
 
 /* variables */
+static Client *lastfocused = NULL;
 static const char broken[] = "broken";
 static char stext[256];
 static int screen;
@@ -771,6 +775,28 @@ drawbars(void)
 }
 
 void
+enqueue(Client *c)
+{
+	Client *l;
+	for (l = c->mon->clients; l && l->next; l = l->next);
+	if (l) {
+		l->next = c;
+		c->next = NULL;
+	}
+}
+
+void
+enqueuestack(Client *c)
+{
+	Client *l;
+	for (l = c->mon->stack; l && l->snext; l = l->snext);
+	if (l) {
+		l->snext = c;
+		c->snext = NULL;
+	}
+}
+
+void
 enternotify(XEvent *e)
 {
 	Client *c;
@@ -814,13 +840,19 @@ focus(Client *c)
 		detachstack(c);
 		attachstack(c);
 		grabbuttons(c, 1);
+		/* set new focused border first to avoid flickering */
 		XSetWindowBorder(dpy, c->win, scheme[SchemeSel][ColBorder].pixel);
-                if (!selmon->drawwithgaps && !c->isfloating) {
+		/* lastfocused may be used if another window was unmanaged */
+		if (lastfocused && lastfocused != c) 
+			XSetWindowBorder(dpy, lastfocused->win, scheme[SchemeNorm][ColBorder].pixel);
+
+		if (!selmon->drawwithgaps && !c->isfloating) {
 			XWindowChanges wc;
                         wc.sibling = selmon->barwin;
                         wc.stack_mode = Below;
                         XConfigureWindow(dpy, c->win, CWSibling | CWStackMode, &wc);
                 }
+
 		setfocus(c);
 	} else {
 		XSetInputFocus(dpy, root, RevertToPointerRoot, CurrentTime);
@@ -1328,9 +1360,14 @@ void
 resizemouse(const Arg *arg)
 {
 	int ocx, ocy, nw, nh;
+	int ocx2, ocy2, nx, ny;
 	Client *c;
 	Monitor *m;
 	XEvent ev;
+	int horizcorner, vertcorner;
+	int di;
+	unsigned int dui;
+	Window dummy;
 	Time lasttime = 0;
 
 	if (!(c = selmon->sel))
@@ -1340,13 +1377,29 @@ resizemouse(const Arg *arg)
 	restack(selmon);
 	ocx = c->x;
 	ocy = c->y;
+	ocx2 = c->x + c->w;
+	ocy2 = c->y + c->h;
 	if (XGrabPointer(dpy, root, False, MOUSEMASK, GrabModeAsync, GrabModeAsync,
 		None, cursor[CurResize]->cursor, CurrentTime) != GrabSuccess)
 		return;
 
-	if (c->isfloating || NULL == c->mon->lt[c->mon->sellt]->arrange) {
-		XWarpPointer(dpy, None, c->win, 0, 0, 0, 0, c->w + c->bw - 1, c->h + c->bw - 1);
-	} else {
+	// floating window resizing
+	if (!c->mon->lt[c->mon->sellt]->arrange || c->isfloating) {
+		if (!XQueryPointer(dpy, c->win, &dummy, &dummy, &di, &di, &nx, &ny, &dui))
+			return;
+		horizcorner = nx < c->w / 2;
+		vertcorner  = ny < c->h / 2;
+		XWarpPointer(dpy, None, c->win, 0, 0, 0, 0, 
+				horizcorner ? (-c->bw) : (c->w + c->bw - 1), 
+				vertcorner  ? (-c->bw) : (c->h + c->bw - 1));	
+	}
+	// mfact resizing       
+	else 
+	{
+		// initialize horizcorner and vertcorner flags
+		horizcorner = 0;
+		vertcorner  = 0;
+
 		XWarpPointer(dpy, None, root, 0, 0, 0, 0,
 			selmon->mx + (selmon->ww * selmon->mfact),
 			selmon->my + (selmon->wh / 2)
@@ -1366,12 +1419,15 @@ resizemouse(const Arg *arg)
 				continue;
 			lasttime = ev.xmotion.time;
 
-			nw = MAX(ev.xmotion.x - ocx - 2 * c->bw + 1, 1);
-			nh = MAX(ev.xmotion.y - ocy - 2 * c->bw + 1, 1);
-
-			// Default resizing
+			// floating window resizing
 			if (!selmon->lt[selmon->sellt]->arrange || c->isfloating)
-				resize(c, c->x, c->y, nw, nh, 1);
+			{
+				nx = horizcorner ? ev.xmotion.x : c->x;
+				ny = vertcorner  ? ev.xmotion.y : c->y;
+				nw = MAX(horizcorner ? (ocx2 - nx) : (ev.xmotion.x - ocx - 2 * c->bw + 1), 1);
+				nh = MAX(vertcorner  ? (ocy2 - ny) : (ev.xmotion.y - ocy - 2 * c->bw + 1), 1);
+				resize(c, nx, ny, nw, nh, 1);
+			}
 			
 			// mfact resizing
 			else {
@@ -1382,9 +1438,14 @@ resizemouse(const Arg *arg)
 		}
 	} while (ev.type != ButtonRelease);
 
+	// floating window resizing
 	if (c->isfloating || NULL == c->mon->lt[c->mon->sellt]->arrange) {
-		XWarpPointer(dpy, None, c->win, 0, 0, 0, 0, c->w + c->bw - 1, c->h + c->bw - 1);
-	} else {
+		XWarpPointer(dpy, None, c->win, 0, 0, 0, 0, 
+				horizcorner ? (-c->bw) : (c->w + c->bw - 1), 
+				vertcorner  ? (-c->bw) : (c->h + c->bw - 1));
+	} 
+	// mfact resizing
+	else {
 		XWarpPointer(dpy, None, root, 0, 0, 0, 0,
 			selmon->mx + (selmon->ww * selmon->mfact),
 			selmon->my + (selmon->wh / 2)
@@ -1423,6 +1484,38 @@ restack(Monitor *m)
 	}
 	XSync(dpy, False);
 	while (XCheckMaskEvent(dpy, EnterWindowMask, &ev));
+}
+
+void
+rotatestack(const Arg *arg)
+{
+	Client *c = NULL, *f;
+
+	if (!selmon->sel)
+		return;
+	f = selmon->sel;
+	if (arg->i > 0) {
+		for (c = nexttiled(selmon->clients); c && nexttiled(c->next); c = nexttiled(c->next));
+		if (c){
+			detach(c);
+			attach(c);
+			detachstack(c);
+			attachstack(c);
+		}
+	} else {
+		if ((c = nexttiled(selmon->clients))){
+			detach(c);
+			enqueue(c);
+			detachstack(c);
+			enqueuestack(c);
+		}
+	}
+	if (c){
+		arrange(selmon);
+		//unfocus(f, 1);
+		focus(f);
+		restack(selmon);
+	}
 }
 
 void
@@ -1855,7 +1948,8 @@ unfocus(Client *c, int setfocus)
 	if (!c)
 		return;
 	grabbuttons(c, 0);
-	XSetWindowBorder(dpy, c->win, scheme[SchemeNorm][ColBorder].pixel);
+	// XSetWindowBorder(dpy, c->win, scheme[SchemeNorm][ColBorder].pixel);
+	lastfocused = c;
 	if (setfocus) {
 		XSetInputFocus(dpy, root, RevertToPointerRoot, CurrentTime);
 		XDeleteProperty(dpy, root, netatom[NetActiveWindow]);
@@ -1881,6 +1975,8 @@ unmanage(Client *c, int destroyed)
 		XSetErrorHandler(xerror);
 		XUngrabServer(dpy);
 	}
+	if (lastfocused == c)
+		lastfocused = NULL;
 	free(c);
 	focus(NULL);
 	updateclientlist();
