@@ -1,0 +1,3 @@
+[submodule "dwmsb"]
+	path = dwmsb
+	url = git@github.com:MisterJaJo/dwmsb
