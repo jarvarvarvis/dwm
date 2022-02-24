@@ -193,6 +193,7 @@ static int gettextprop(Window w, Atom atom, char *text, unsigned int size);
 static void grabbuttons(Client *c, int focused);
 static void grabkeys(void);
 static void incnmaster(const Arg *arg);
+static int isclientmaster(Client *client);
 static void keypress(XEvent *e);
 static void killclient(const Arg *arg);
 static void manage(Window w, XWindowAttributes *wa);
@@ -1055,6 +1056,20 @@ incnmaster(const Arg *arg)
 		selmon->nmaster = MAX(selmon->nmaster + arg->i, 0);
 	}
 	arrange(selmon);
+}
+
+int
+isclientmaster(Client *client)
+{
+	if (!selmon) return 0;
+	if (!selmon->clients) return 0;
+
+
+	int i;
+	Client *c;
+	for (i = 0, c = selmon->clients; c && c != client; c = nexttiled(c->next), i++);
+
+	return i < selmon->nmaster;
 }
 
 #ifdef XINERAMA

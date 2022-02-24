@@ -23,7 +23,6 @@ dwm: ${OBJ}
 	${CC} -o $@ ${OBJ} ${LDFLAGS}
 
 clean:
-	rm -f dwmsb
 	rm -f dwm ${OBJ} dwm-${VERSION}.tar.gz
 
 dist: clean
@@ -48,7 +47,7 @@ install: all
 uninstall:
 	rm -f ${DESTDIR}${PREFIX}/bin/dwm\
 		${DESTDIR}${MANPREFIX}/man1/dwm.1
-	rm -f /usr/share/dwm
+	rm -rf /usr/share/dwm/
 	rm /usr/share/xsessions/dwm.desktop
 
 .PHONY: all options clean dist install uninstall

@@ -7,4 +7,4 @@ feh --bg-scale ~/dwm/wallpaper.png
 setxkbmap de
 
 # Start dwmblocks
-./dwmblocks/dwmblocks &
+./dwmsb/dwmsb &

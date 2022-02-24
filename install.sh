@@ -2,7 +2,6 @@
 # Make dwm
 make clean install
 
-# Make dwmblocks
-cd dwmblocks
-make
-make install
+# Make dwmsb
+cd dwmsb
+make clean install

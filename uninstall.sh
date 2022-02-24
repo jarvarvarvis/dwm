@@ -1,7 +1,7 @@
 #!/bin/sh
-# Uninstall dwm
-make uninstall
+# Make dwm
+make clean uninstall
 
-# Uninstall dwmblocks
-cd dwmblocks
-make uninstall
+# Make dwmsb
+cd dwmsb
+make clean uninstall
