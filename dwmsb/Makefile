@@ -16,7 +16,7 @@ options:
 .c.o:
 	${CC} -c ${CFLAGS} $<
 
-${OBJ}: config.mk
+${OBJ}: config.mk config.h
 
 dwmsb: ${OBJ}
 	${CC} -o $@ ${OBJ} ${LDFLAGS}
