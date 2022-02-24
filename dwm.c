@@ -1944,7 +1944,7 @@ tile(Monitor *m)
 
 				mfacts -= c->cfact;
                         } else {
-                                h = (m->wh - ty) / (n - i) - m->gappx;
+                                h = (m->wh - ty) * (c->cfact / sfacts) - m->gappx;
                                 resize(c, m->wx + mw + m->gappx, m->wy + ty, m->ww - mw - (2*c->bw) - 2*m->gappx, h - (2*c->bw), 0);
                                 if (ty + HEIGHT(c) + m->gappx < m->wh)
                                         ty += HEIGHT(c) + m->gappx;
@@ -1967,7 +1967,7 @@ tile(Monitor *m)
 
 				mfacts -= c->cfact;
                         } else {
-                                h = (m->wh - ty) / (n - i);
+                                h = (m->wh - ty) * (c->cfact / sfacts);
                                 resize(c, m->wx + mw - c->bw, m->wy + ty, m->ww - mw, h - c->bw, False);
                                 ty += HEIGHT(c) - c->bw;
 
