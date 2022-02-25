@@ -13,15 +13,17 @@ Installation
 Edit config.mk to match your local setup (dwm is installed into
 the /usr/local namespace by default).
 
-Afterwards enter the following command to build and install dwm (if
-necessary as root):
-
-    make clean install
+Afterwards, run the supplied install.sh script.
+If you wish to uninstall dwm, run the uninstall.sh script.
 
 
 Running dwm
 -----------
-Add the following line to your .xinitrc to start dwm using startx:
+A .desktop file is copied to /usr/share/xsessions when installing dwm.
+This makes it available in your display manager.
+
+If you don't use a display manager, add the following line to your 
+.xinitrc to start dwm using startx:
 
     exec dwm
 
@@ -31,15 +33,6 @@ the DISPLAY environment variable is set correctly, e.g.:
     DISPLAY=foo.bar:1 exec dwm
 
 (This will start dwm on display :1 of the host foo.bar.)
-
-In order to display status info in the bar, you can do something
-like this in your .xinitrc:
-
-    while xsetroot -name "`date` `uptime | sed 's/.*,//'`"
-    do
-    	sleep 1
-    done &
-    exec dwm
 
 
 Configuration
