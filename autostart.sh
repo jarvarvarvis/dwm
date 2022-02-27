@@ -7,7 +7,7 @@ feh --bg-scale ~/dwm/wallpaper.png
 setxkbmap de
 
 # Start picom
-picom &
+picom --config ~/dwm/picom.conf &
 
 # Start dwmsb
 ./dwmsb/dwmsb &
