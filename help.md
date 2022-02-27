@@ -13,6 +13,7 @@ Modifier Key: Mod4 (Windows Key)
 ### Programs
 
 Mod + d                     | Start dmenu
+Mod + a                     | Start dmenu desktop file launcher
 Mod + t                     | Start terminal (kitty)
 Mod + Alt + h               | Show this help document
 

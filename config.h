@@ -73,7 +73,7 @@ static Key keys[] = {
 	/* modifier                     key        function         argument */
 	// Spawn keybinds
 	{ MODKEY,                       XK_d,      spawn,           {.v = dmenucmd     } },  // dmenu
-	{ MODKEY,                       XK_s,      spawn,           {.v = dmenudruncmd } },  // dmenu_drun
+	{ MODKEY,                       XK_a,      spawn,           {.v = dmenudruncmd } },  // dmenu_drun
 	{ MODKEY,                       XK_t,      spawn,           {.v = termcmd      } },  // terminal
 
 	// Show help
