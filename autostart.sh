@@ -6,5 +6,8 @@ feh --bg-scale ~/dwm/wallpaper.png
 # Set X keyboard map to a German layout
 setxkbmap de
 
+# Start picom
+picom &
+
 # Start dwmsb
 ./dwmsb/dwmsb &

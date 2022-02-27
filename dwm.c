@@ -1483,7 +1483,6 @@ resizemouse(const Arg *arg)
 			// mfact resizing
 			else {
 				selmon->mfact = (double) (ev.xmotion.x_root - selmon->mx) / (double) selmon->ww;
-				arrange(selmon);
 			}
 			break;
 		}
@@ -1497,6 +1496,7 @@ resizemouse(const Arg *arg)
 	} 
 	// mfact resizing
 	else {
+		arrange(selmon);
 		XWarpPointer(dpy, None, root, 0, 0, 0, 0,
 			selmon->mx + (selmon->ww * selmon->mfact),
 			selmon->my + (selmon->wh / 2)

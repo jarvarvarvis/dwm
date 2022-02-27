@@ -1,5 +1,6 @@
 # You have to supply a wallpaper yourself
-wallpaper.png
+!dwm.png
+*.png
 
 # Ignore .rej and .orig files created by patch
 *.orig
