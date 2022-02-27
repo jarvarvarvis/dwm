@@ -34,6 +34,11 @@ dist: clean
 	rm -rf dwm-${VERSION}
 
 install: all
+	chmod +x dmenu_drun
+	chmod +x dmenu_dpath
+	cp dmenu_dpath ${DESTDIR}${PREFIX}/bin/dmenu_dpath
+	cp dmenu_drun ${DESTDIR}${PREFIX}/bin/dmenu_drun
+	chmod +x autostart.sh
 	mkdir -p ${DESTDIR}${PREFIX}/bin
 	cp -f dwm ${DESTDIR}${PREFIX}/bin
 	chmod 755 ${DESTDIR}${PREFIX}/bin/dwm
@@ -46,7 +51,9 @@ install: all
 
 uninstall:
 	rm -f ${DESTDIR}${PREFIX}/bin/dwm\
-		${DESTDIR}${MANPREFIX}/man1/dwm.1
+	      ${DESTDIR}${PREFIX}/bin/dmenu_drun\
+	      ${DESTDIR}${PREFIX}/bin/dmenu_dpath\
+	      ${DESTDIR}${MANPREFIX}/man1/dwm.1\
 	rm -rf /usr/share/dwm/
 	rm /usr/share/xsessions/dwm.desktop
 

@@ -62,15 +62,19 @@ static const Layout layouts[] = {
 
 /* commands */
 static char dmenumon[2] = "0"; /* component of dmenucmd, manipulated in spawn() */
-static const char *dmenucmd[] = { "dmenu_run", "-m", dmenumon, "-fn", dmenufont, "-nb", col_gray1, "-nf", col_gray3, "-sb", col_cyan, "-sf", col_gray4, NULL };
-static const char *termcmd[]  = { "kitty", NULL };
-static const char *helpcmd[]  = { "kitty", "less", "/usr/share/dwm/help.md", NULL };
+static const char *dmenucmd[]     = { "dmenu_run",
+	"-m", dmenumon, "-fn", dmenufont, "-nb", col_gray1, "-nf", col_gray3, "-sb", col_cyan, "-sf", col_gray4, NULL };
+static const char *dmenudruncmd[] = { "dmenu_drun",
+	"-m", dmenumon, "-fn", dmenufont, "-nb", col_gray1, "-nf", col_gray3, "-sb", col_cyan, "-sf", col_gray4, NULL };
+static const char *termcmd[]      = { "kitty", NULL };
+static const char *helpcmd[]      = { "kitty", "less", "/usr/share/dwm/help.md", NULL };
 
 static Key keys[] = {
 	/* modifier                     key        function         argument */
 	// Spawn keybinds
-	{ MODKEY,                       XK_d,      spawn,           {.v = dmenucmd } },  // dmenu
-	{ MODKEY,                       XK_t,      spawn,           {.v = termcmd } },   // terminal
+	{ MODKEY,                       XK_d,      spawn,           {.v = dmenucmd     } },  // dmenu
+	{ MODKEY,                       XK_s,      spawn,           {.v = dmenudruncmd } },  // dmenu_drun
+	{ MODKEY,                       XK_t,      spawn,           {.v = termcmd      } },  // terminal
 
 	// Show help
 	{ MODKEY|Mod1Mask,              XK_h,      spawn,           {.v = helpcmd } },

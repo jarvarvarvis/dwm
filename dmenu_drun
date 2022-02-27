@@ -1,0 +1,3 @@
+#!/bin/sh
+args=$@
+gtk-launch $(dmenu_dpath | dmenu $args "$@") &
