@@ -9,5 +9,6 @@ setxkbmap de
 # Start picom
 picom --config ~/dwm/picom.conf &
 
-# Start dwmsb
+# Kill previous instances of dwmsb and then start it again
+killall dwmsb
 ./dwmsb/dwmsb &
