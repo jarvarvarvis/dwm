@@ -87,6 +87,10 @@ static Key keys[] = {
 	{ MODKEY|ShiftMask,             XK_j,      rotatestack,     {.i = +1 } },
 	{ MODKEY|ShiftMask,             XK_k,      rotatestack,     {.i = -1 } },
 
+	// Move the focused client to the master area
+	// The previous client in the master area is pushed on the stack
+	{ MODKEY|ShiftMask,             XK_z,      zoom,            {0} },
+
 	// Change factor of master area
 	{ MODKEY|ControlMask,           XK_h,      setmfact,        {.f = -0.05} },
 	{ MODKEY|ControlMask,           XK_l,      setmfact,        {.f = +0.05} },

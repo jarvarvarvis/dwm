@@ -27,6 +27,8 @@ Mod + k                     | Change focus to previous client
 Mod + Shift + j             | Rotate the stack forwards, cycling all clients in the current tag
 Mod + Shift + k             | Rotate the stack backwards, cycling all clients in the current tag
 
+Mod + Shift + z             | Move the focused client to the master area, the previous master client is pushed on the stack
+
 ### Master area
 
 Mod + Ctrl + h              | Decrement the factor of the master area
