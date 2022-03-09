@@ -47,3 +47,6 @@ Configuration
 -------------
 The configuration of dwm is done by creating a custom config.h
 and (re)compiling the source code.
+
+If you want to use your own pywal-generated color palette, you can simply
+edit the pywal-gen script accordingly.
