@@ -9,12 +9,13 @@ all: options dwmsb
 
 options:
 	@echo dwmsb build options:
-	@echo "CFLAGS  = ${CFLAGS}"
-	@echo "LDFLAGS = ${LDFLAGS}"
-	@echo "CC      = ${CC}"
+	@echo "CFLAGS        = ${CFLAGS}"
+	@echo "LDFLAGS       = ${LDFLAGS}"
+	@echo "CC            = ${CC}"
+	@echo "DWMSB_MODULES = ${DWMSB_MODULES}"
 
 .c.o:
-	${CC} -c ${CFLAGS} $<
+	${CC} -c ${CFLAGS} ${DWMSB_MODULES} $<
 
 ${OBJ}: config.mk config.h
 
