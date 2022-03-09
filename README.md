@@ -13,7 +13,15 @@ Installation
 Edit config.mk to match your local setup (dwm is installed into
 the /usr/local namespace by default).
 
-Afterwards, run the supplied install.sh script.
+Afterwards, run the following command in your terminal if you want to use pywal:
+```sh
+sh pywal-gen.sh && sudo sh install.sh
+```
+If you don't want to use pywal, comment out `-DUSE_PYWAL_COLORS=1` in config.mk and
+run the following command:
+```sh
+sudo sh install.sh
+```
 If you wish to uninstall dwm, run the uninstall.sh script.
 
 
