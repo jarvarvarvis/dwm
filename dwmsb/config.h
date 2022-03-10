@@ -5,38 +5,33 @@
 #include <time.h>
 #include <sys/sysinfo.h>
 
+void tryreadcmd(const char *cmd, char *buffer, const int buffersize)
+{
+	FILE *cmdfp;
+	if ((cmdfp = popen(cmd, "r")) == NULL)
+	{
+		fprintf(stderr, "Error opening pipe!\n");
+		exit(-1);
+	}
+	assert(fgets(buffer, buffersize, cmdfp) != NULL);
+	buffer[strlen(buffer) - 1] = 0;
+	pclose(cmdfp);
+}
+
 #ifdef MODULE_BATTERY
 char *batcmd()
 {
-	#define PERCENTAGE_BUFSIZE 16
-	#define STATE_BUFSIZE 16
-	char percentage[PERCENTAGE_BUFSIZE];
-	char state[STATE_BUFSIZE];
-
-	/* Open the command for reading. */
 	// Get battery percentage
+	#define PERCENTAGE_BUFSIZE 16
+	char percentage[PERCENTAGE_BUFSIZE];
 	const char *pcmd = "upower -i $(upower -e | grep 'BAT') | awk '/percentage/ { print $2 }'";
-	FILE *pcmdfp;
-	if ((pcmdfp = popen(pcmd, "r")) == NULL)
-	{
-		fprintf(stderr, "Error opening pipe!\n");
-		exit(-1);
-	}
-	assert(fgets(percentage, PERCENTAGE_BUFSIZE, pcmdfp) != NULL);
-	percentage[strlen(percentage) - 1] = 0;
-	pclose(pcmdfp);
+	tryreadcmd(pcmd, percentage, PERCENTAGE_BUFSIZE);
 
 	// Get battery state
+	#define STATE_BUFSIZE 16
+	char state[STATE_BUFSIZE];
 	const char *scmd = "upower -i $(upower -e | grep 'BAT') | awk '/state/ { print $2 }'";
-	FILE *scmdfp;
-	if ((scmdfp = popen(scmd, "r")) == NULL)
-	{
-		fprintf(stderr, "Error opening pipe!\n");
-		exit(-1);
-	}
-	assert(fgets(state, STATE_BUFSIZE, scmdfp) != NULL);
-	state[strlen(state) - 1] = 0;
-	pclose(scmdfp);
+	tryreadcmd(scmd, state, STATE_BUFSIZE);
 
 	char *s = (char *) malloc(sizeof(char) * (PERCENTAGE_BUFSIZE + STATE_BUFSIZE + 4));
 	sprintf(s, "%s (%s)", percentage, state);
