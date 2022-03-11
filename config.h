@@ -81,78 +81,89 @@ static const char *dmenudruncmd[] = { "dmenu_drun",
 #else
 	"-m", dmenumon, "-fn", dmenufont, "-nb", col_gray1, "-nf", col_gray3, "-sb", col_cyan, "-sf", col_gray4, NULL };
 #endif
-static const char *termcmd[]      = { "kitty", NULL };
-static const char *helpcmd[]      = { "kitty", "less", "/usr/share/dwm/help.md", NULL };
+static const char *termcmd[]        = { "kitty", NULL };
+static const char *helpcmd[]        = { "kitty", "less", "/usr/share/dwm/help.md", NULL };
+
+static const char *pacmd_volraise[] = { "pactl", "set-sink-volume", "@DEFAULT_SINK@"  , "+10%",   NULL };
+static const char *pacmd_vollower[] = { "pactl", "set-sink-volume", "@DEFAULT_SINK@"  , "-10%",   NULL };
+static const char *pacmd_volmute[]  = { "pactl", "set-sink-mute"  , "@DEFAULT_SINK@"  , "toggle", NULL };
+static const char *pacmd_micmute[]  = { "pactl", "set-source-mute", "@DEFAULT_SOURCE@", "toggle", NULL };
 
 static Key keys[] = {
-	/* modifier                     key        function         argument */
+	/* modifier                     key                      function         argument */
 	// Spawn keybinds
-	{ MODKEY,                       XK_d,      spawn,           {.v = dmenucmd     } },  // dmenu
-	{ MODKEY,                       XK_a,      spawn,           {.v = dmenudruncmd } },  // dmenu_drun
-	{ MODKEY,                       XK_t,      spawn,           {.v = termcmd      } },  // terminal
+	{ MODKEY,                       XK_d,                    spawn,           {.v = dmenucmd     } },  // dmenu
+	{ MODKEY,                       XK_a,                    spawn,           {.v = dmenudruncmd } },  // dmenu_drun
+	{ MODKEY,                       XK_t,                    spawn,           {.v = termcmd      } },  // terminal
+
+	// PulseAudio control
+	{ 0,                            XF86XK_AudioRaiseVolume, spawn,           {.v = pacmd_volraise } }, // Raise volume
+	{ 0,                            XF86XK_AudioLowerVolume, spawn,           {.v = pacmd_vollower } }, // Lower volume
+	{ 0,                            XF86XK_AudioMute,        spawn,           {.v = pacmd_volmute  } }, // Mute
+	{ 0,                            XF86XK_AudioMicMute,     spawn,           {.v = pacmd_micmute  } }, // Mute microphone
 
 	// Show help
-	{ MODKEY|Mod1Mask,              XK_h,      spawn,           {.v = helpcmd } },
+	{ MODKEY|Mod1Mask,              XK_h,                    spawn,           {.v = helpcmd } },
 
 	// Change focus
-	{ MODKEY,                       XK_j,      focusstack,      {.i = +1 } },
-	{ MODKEY,                       XK_k,      focusstack,      {.i = -1 } },
+	{ MODKEY,                       XK_j,                    focusstack,      {.i = +1 } },
+	{ MODKEY,                       XK_k,                    focusstack,      {.i = -1 } },
 
 	// Rotate stack
-	{ MODKEY|ShiftMask,             XK_j,      rotatestack,     {.i = +1 } },
-	{ MODKEY|ShiftMask,             XK_k,      rotatestack,     {.i = -1 } },
+	{ MODKEY|ShiftMask,             XK_j,                    rotatestack,     {.i = +1 } },
+	{ MODKEY|ShiftMask,             XK_k,                    rotatestack,     {.i = -1 } },
 
 	// Move the focused client to the master area
 	// The previous client in the master area is pushed on the stack
-	{ MODKEY|ShiftMask,             XK_z,      zoom,            {0} },
+	{ MODKEY|ShiftMask,             XK_z,                    zoom,            {0} },
 
 	// Change factor of master area
-	{ MODKEY|ControlMask,           XK_h,      setmfact,        {.f = -0.05} },
-	{ MODKEY|ControlMask,           XK_l,      setmfact,        {.f = +0.05} },
+	{ MODKEY|ControlMask,           XK_h,                    setmfact,        {.f = -0.05} },
+	{ MODKEY|ControlMask,           XK_l,                    setmfact,        {.f = +0.05} },
 	
 	// Change number of clients in the master area
-	{ MODKEY|ControlMask,           XK_i,      incnmaster,      {.i = +1 } },
-	{ MODKEY|ControlMask,           XK_d,      incnmaster,      {.i = -1 } },
-	{ MODKEY|ControlMask,           XK_0,      incnmaster,      {.i =  0 } },
+	{ MODKEY|ControlMask,           XK_i,                    incnmaster,      {.i = +1 } },
+	{ MODKEY|ControlMask,           XK_d,                    incnmaster,      {.i = -1 } },
+	{ MODKEY|ControlMask,           XK_0,                    incnmaster,      {.i =  0 } },
 
 	// Change factor of clients
-	{ MODKEY|ControlMask,           XK_j,      setcfact,        {.f = +0.25 } },
-	{ MODKEY|ControlMask,           XK_k,      setcfact,        {.f = -0.25 } },
-	{ MODKEY|ControlMask,           XK_o,      setcfact,        {.f =  0.0  } },
+	{ MODKEY|ControlMask,           XK_j,                    setcfact,        {.f = +0.25 } },
+	{ MODKEY|ControlMask,           XK_k,                    setcfact,        {.f = -0.25 } },
+	{ MODKEY|ControlMask,           XK_o,                    setcfact,        {.f =  0.0  } },
 
 	// Change gap size
-	{ MODKEY,                       XK_minus,  setgaps,         {.i = -5 } },
-	{ MODKEY,                       XK_plus,   setgaps,         {.i = +5 } },
-	{ MODKEY,                       XK_0,      setgaps,         {.i = GAP_RESET } },
+	{ MODKEY,                       XK_minus,                setgaps,         {.i = -5 } },
+	{ MODKEY,                       XK_plus,                 setgaps,         {.i = +5 } },
+	{ MODKEY,                       XK_0,                    setgaps,         {.i = GAP_RESET } },
 
 	// Kill the current client
-	{ MODKEY,                       XK_q,      killclient,      {0} },
+	{ MODKEY,                       XK_q,                    killclient,      {0} },
 	
 	// Toggle floating for one single window
-	{ MODKEY,                       XK_space,  togglefloating,  {0} },
+	{ MODKEY,                       XK_space,                togglefloating,  {0} },
 
 	// Set client fullscreen state
-	{ MODKEY,                       XK_F11,    focusfullscreen, {0} },
+	{ MODKEY,                       XK_F11,                  focusfullscreen, {0} },
 
 	// Change window layout
-	{ MODKEY|Mod1Mask,              XK_t,      setlayout,       {.v = &layouts[0]} }, // Tiling
-	{ MODKEY|Mod1Mask,              XK_f,      setlayout,       {.v = &layouts[1]} }, // No layout / Floating
-	{ MODKEY|Mod1Mask,              XK_m,      setlayout,       {.v = &layouts[2]} }, // Monocle
+	{ MODKEY|Mod1Mask,              XK_t,                    setlayout,       {.v = &layouts[0]} }, // Tiling
+	{ MODKEY|Mod1Mask,              XK_f,                    setlayout,       {.v = &layouts[1]} }, // No layout / Floating
+	{ MODKEY|Mod1Mask,              XK_m,                    setlayout,       {.v = &layouts[2]} }, // Monocle
 
 	// Workspaces
-	TAGKEYS(                        XK_1,                       0)
-	TAGKEYS(                        XK_2,                       1)
-	TAGKEYS(                        XK_3,                       2)
-	TAGKEYS(                        XK_4,                       3)
-	TAGKEYS(                        XK_5,                       4)
-	TAGKEYS(                        XK_6,                       5)
-	TAGKEYS(                        XK_7,                       6)
-	TAGKEYS(                        XK_8,                       7)
-	TAGKEYS(                        XK_9,                       8)
+	TAGKEYS(                        XK_1,                                     0)
+	TAGKEYS(                        XK_2,                                     1)
+	TAGKEYS(                        XK_3,                                     2)
+	TAGKEYS(                        XK_4,                                     3)
+	TAGKEYS(                        XK_5,                                     4)
+	TAGKEYS(                        XK_6,                                     5)
+	TAGKEYS(                        XK_7,                                     6)
+	TAGKEYS(                        XK_8,                                     7)
+	TAGKEYS(                        XK_9,                                     8)
 
 	// Quit dwm
-	{ MODKEY|ShiftMask,             XK_e,      quit,            {.i = 0} },
-	{ MODKEY|ShiftMask,             XK_r,      quit,            {.i = 1} }
+	{ MODKEY|ShiftMask,             XK_e,                    quit,            {.i = 0} },
+	{ MODKEY|ShiftMask,             XK_r,                    quit,            {.i = 1} }
 };
 
 /* button definitions */
