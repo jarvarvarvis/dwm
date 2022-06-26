@@ -10,10 +10,25 @@ setxkbmap de
 picom --config ~/dwm/picom.conf &
 
 # Start .desktop files in ~/.config/autostart/
-# This code depends on the program dex - if you use Arch, just sudo pacman -S dex
-for file in ~/.config/autostart/*; do
-	dex $file &
-done
+# This code depends on the program dex - the package is called "dex" (on most distros)
+if which dex &> /dev/null; then
+	for file in ~/.config/autostart/*; do
+		dex $file &
+	done
+fi
+
+# Start the greenclip daemon, if it was found.
+# This code depends on the program greenclip - the AUR package is called "rofi-greenclip"
+# Alternatively, you can clone the Git repository https://github.com/erebe/greenclip
+if which greenclip &> /dev/null; then
+	greenclip daemon &
+fi
+
+# Start dunst, if it was found.
+# This code depends on the program dunst - the package is called "dunst" (on most distros)
+if which dunst &> /dev/null; then
+	dunst &
+fi
 
 # Kill previous instances of dwmsb and then start it again
 killall dwmsb
