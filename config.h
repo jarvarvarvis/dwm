@@ -69,6 +69,10 @@ static const Layout layouts[] = {
 
 /* commands */
 static char dmenumon[2] = "0"; /* component of dmenucmd, manipulated in spawn() */
+
+/* Used program launcher */
+// dmenu
+#ifndef USE_ROFI
 static const char *dmenucmd[]     = { "dmenu_run",
 #ifdef USE_PYWAL_COLORS
 	"-m", dmenumon, "-fn", dmenufont, "-nb", norm_bg,   "-nf", norm_fg,   "-sb", sel_bg,   "-sf", sel_fg, NULL };
@@ -81,6 +85,13 @@ static const char *dmenudruncmd[] = { "dmenu_drun",
 #else
 	"-m", dmenumon, "-fn", dmenufont, "-nb", col_gray1, "-nf", col_gray3, "-sb", col_cyan, "-sf", col_gray4, NULL };
 #endif
+
+// rofi
+#else
+static const char *dmenucmd[]       = { "rofi", "-show",  "run", "-config", "~/dwm/config.rasi", NULL };
+static const char *dmenudruncmd[]   = { "rofi", "-show", "drun", "-config", "~/dwm/config.rasi", NULL };
+#endif /* USE_ROFI */
+
 static const char *termcmd[]        = { "kitty", NULL };
 static const char *helpcmd[]        = { "kitty", "less", "/usr/share/dwm/help.md", NULL };
 

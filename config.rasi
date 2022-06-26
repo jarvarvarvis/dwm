@@ -1,0 +1,9 @@
+configuration {
+	modi: "window,run,drun";
+	font: "mono 10";
+	timeout {
+		action: "kb-cancel";
+		delay:  0;
+	}
+}
+@theme "gruvbox-dark-soft"
