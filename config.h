@@ -74,22 +74,34 @@ static char dmenumon[2] = "0"; /* component of dmenucmd, manipulated in spawn() 
 // dmenu
 #ifndef USE_ROFI
 static const char *dmenucmd[]     = { "dmenu_run",
+	"-m", dmenumon, "-fn", dmenufont, 
 #ifdef USE_PYWAL_COLORS
-	"-m", dmenumon, "-fn", dmenufont, "-nb", norm_bg,   "-nf", norm_fg,   "-sb", sel_bg,   "-sf", sel_fg, NULL };
+	"-nb", norm_bg,   "-nf", norm_fg,   "-sb", sel_bg,   "-sf", sel_fg,
 #else
-	"-m", dmenumon, "-fn", dmenufont, "-nb", col_gray1, "-nf", col_gray3, "-sb", col_cyan, "-sf", col_gray4, NULL };
+	"-nb", col_gray1, "-nf", col_gray3, "-sb", col_cyan, "-sf", col_gray4,
 #endif
+	NULL };
 static const char *dmenudruncmd[] = { "dmenu_drun",
+	"-m", dmenumon, "-fn", dmenufont, 
 #ifdef USE_PYWAL_COLORS
-	"-m", dmenumon, "-fn", dmenufont, "-nb", norm_bg,   "-nf", norm_fg,   "-sb", sel_bg,   "-sf", sel_fg, NULL };
+	"-nb", norm_bg,   "-nf", norm_fg,   "-sb", sel_bg,   "-sf", sel_fg,
 #else
-	"-m", dmenumon, "-fn", dmenufont, "-nb", col_gray1, "-nf", col_gray3, "-sb", col_cyan, "-sf", col_gray4, NULL };
+	"-nb", col_gray1, "-nf", col_gray3, "-sb", col_cyan, "-sf", col_gray4,
 #endif
+	NULL };
 
 // rofi
 #else
-static const char *dmenucmd[]       = { "rofi", "-show",  "run", "-config", "~/dwm/config.rasi", NULL };
-static const char *dmenudruncmd[]   = { "rofi", "-show", "drun", "-config", "~/dwm/config.rasi", NULL };
+static const char *dmenucmd[]       = { "rofi", 
+	"-show",  "run", 
+	"-monitor", dmenumon,
+	"-config", "~/dwm/config.rasi", 
+	NULL };
+static const char *dmenudruncmd[]   = { "rofi", 
+	"-show", "drun",
+	"-monitor", dmenumon,
+       	"-config", "~/dwm/config.rasi", 
+	NULL };
 #endif /* USE_ROFI */
 
 static const char *termcmd[]        = { "kitty", NULL };
