@@ -1,0 +1,73 @@
+/*
+ * ROFI color theme
+ *
+ * Based on the Minimal Theme from https://github.com/Murzchnvok/rofi-collection
+ *
+ * User: Contributors
+ * Copyright: *!
+ */
+
+configuration {
+}
+
+* {
+    border: 0;
+    margin: 0;
+    padding: 0;
+    spacing: 0;
+
+    bg: #1d1f21;
+    bg-alt: #2d2f31;
+    fg: #FFFFFF;
+    fg-alt: #424242;
+
+    text-padding: 8px;
+    visible-entries: 10;
+
+    background-color: @bg;
+    text-color: @fg;
+}
+
+window {
+    transparency: "real";
+}
+
+mainbox {
+    children: [inputbar, listview];
+}
+
+inputbar {
+    children: [prompt, entry];
+}
+
+entry {
+    padding: @text-padding;
+}
+
+prompt {
+    padding: @text-padding;
+}
+
+listview {
+    lines: @visible-entries;
+    scrollbar: true;
+}
+
+scrollbar {
+    background-color: @bg-alt;
+    handle-color: @fg;
+    margin: 0 0 0 6px;
+}
+
+element {
+    children: [element-text];
+}
+
+element-text {
+    padding: @text-padding;
+    text-color: @fg-alt;
+}
+
+element-text selected {
+    text-color: @fg;
+}
