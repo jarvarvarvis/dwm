@@ -35,7 +35,7 @@ window {
     transparency: "real";
     padding: @window-padding;
     border: @window-border;
-    border-color: @fg-alt;
+    border-color: @fg;
 }
 
 mainbox {
