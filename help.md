@@ -1,4 +1,4 @@
-# MisterJaJo dwm configuration tutorial
+# dwm configuration tutorial
 
 ## Terminology
 
@@ -43,6 +43,20 @@ Mod + Ctrl + 0              | Reset the number of clients in the master area to 
 Mod + Ctrl + j              | Increment the factor of the focused client
 Mod + Ctrl + k              | Decrement the factor of the focused client
 Mod + Ctrl + o              | Reset factor of the focused client
+
+### Floating client position
+
+Mod + ArrowLeft             | Move the currently focused client (floating) left
+Mod + ArrowRight            | Move the currently focused client (floating) right
+Mod + ArrowUp               | Move the currently focused client (floating) up
+Mod + ArrowDown             | Move the currently focused client (floating) down
+
+### Floating client scale
+
+Mod + Shift + ArrowLeft     | Scale the currently focused client (floating) to the left
+Mod + Shift + ArrowRight    | Scale the currently focused client (floating) to the right by
+Mod + Shift + ArrowUp       | Scale the currently focused client (floating) upwards by
+Mod + Shift + ArrowDown     | Scale the currently focused client (floating) downwards by
 
 ### Gaps
 

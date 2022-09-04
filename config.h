@@ -1,22 +1,24 @@
 /* See LICENSE file for copyright and license details. */
 
 /* appearance */
-static const unsigned int borderpx  = 1;        /* border pixel of windows */
-static const int startwithgaps      = 1;        /* 0 means gaps are not used by default */
-static const unsigned int gappx     = 20;       /* gap size between windows in pixels */
-static const unsigned int snap      = 32;       /* snap pixel */
-static const int showbar            = 1;        /* 0 means no bar */
-static const int topbar             = 1;        /* 0 means bottom bar */
-static const int statusrpad         = 6;        /* right padding of bar status text in px */
-static const int statuslpad         = 6;        /* left padding of bar status text in px */
-static const char *fonts[]          = { "monospace:size=10" };
-static const char dmenufont[]       = "monospace:size=10";
-static const char col_gray1[]       = "#222222";
-static const char col_gray2[]       = "#444444";
-static const char col_gray3[]       = "#bbbbbb";
-static const char col_gray4[]       = "#eeeeee";
-static const char col_cyan[]        = "#005577";
-static const char col_red[]         = "#ff0000";
+static const unsigned int borderpx   = 1;        /* border pixel of windows */
+static const int startwithgaps       = 1;        /* 0 means gaps are not used by default */
+static const unsigned int gappx      = 25;       /* gap size between windows in pixels */
+static const float moveoffset        = 10.0;     /* the amount by which floating clients are moved */
+static const float scaleoffset       = 10.0;     /* the amount by which floating clients are scaled */
+static const unsigned int snap       = 32;       /* snap pixel */
+static const int showbar             = 1;        /* 0 means no bar */
+static const int topbar              = 1;        /* 0 means bottom bar */
+static const int statusrpad          = 6;        /* right padding of bar status text in px */
+static const int statuslpad          = 6;        /* left padding of bar status text in px */
+static const char *fonts[]           = { "monospace:size=10" };
+static const char dmenufont[]        = "monospace:size=10";
+static const char col_gray1[]        = "#222222";
+static const char col_gray2[]        = "#444444";
+static const char col_gray3[]        = "#bbbbbb";
+static const char col_gray4[]        = "#eeeeee";
+static const char col_cyan[]         = "#005577";
+static const char col_red[]          = "#ff0000";
 
 #ifdef USE_PYWAL_COLORS
 #include "colors-wal-dwm.h"
@@ -153,6 +155,18 @@ static Key keys[] = {
 	{ MODKEY|ControlMask,           XK_j,                    setcfact,        {.f = +0.25 } },
 	{ MODKEY|ControlMask,           XK_k,                    setcfact,        {.f = -0.25 } },
 	{ MODKEY|ControlMask,           XK_o,                    setcfact,        {.f =  0.0  } },
+
+	// Move the focused client (if it's floating)
+	{ MODKEY,			XK_Left,                 movefloating,    {.f = -moveoffset, .i = DIR_LEFT_RIGHT } },
+	{ MODKEY,       		XK_Right,                movefloating,    {.f = +moveoffset, .i = DIR_LEFT_RIGHT } },
+	{ MODKEY,             		XK_Up,                   movefloating,    {.f = -moveoffset, .i = DIR_UP_DOWN    } },
+	{ MODKEY,             		XK_Down,                 movefloating,    {.f = +moveoffset, .i = DIR_UP_DOWN    } },
+
+	// Scale the focused client (if it's floating)
+	{ MODKEY|ShiftMask,		XK_Left,                 scalefloating,   {.f = -scaleoffset, .i = DIR_LEFT_RIGHT } },
+	{ MODKEY|ShiftMask,    		XK_Right,                scalefloating,   {.f = +scaleoffset, .i = DIR_LEFT_RIGHT } },
+	{ MODKEY|ShiftMask,   		XK_Up,                   scalefloating,   {.f = -scaleoffset, .i = DIR_UP_DOWN    } },
+	{ MODKEY|ShiftMask,    		XK_Down,                 scalefloating,   {.f = +scaleoffset, .i = DIR_UP_DOWN    } },
 
 	// Change gap size
 	{ MODKEY,                       XK_minus,                setgaps,         {.i = -5 } },

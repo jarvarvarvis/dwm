@@ -61,6 +61,9 @@
 #define GAP_TOGGLE 100
 #define GAP_RESET  0
 
+#define DIR_LEFT_RIGHT  0
+#define DIR_UP_DOWN     1
+
 #define MWM_HINTS_FLAGS_FIELD       0
 #define MWM_HINTS_DECORATIONS_FIELD 2
 #define MWM_HINTS_DECORATIONS       (1 << 1)
@@ -78,7 +81,7 @@ enum { WMProtocols, WMDelete, WMState, WMTakeFocus, WMLast }; /* default atoms *
 enum { ClkTagBar, ClkLtSymbol, ClkStatusText, ClkWinTitle,
        ClkClientWin, ClkRootWin, ClkLast }; /* clicks */
 
-typedef union {
+typedef struct {
 	int i;
 	unsigned int ui;
 	float f;
@@ -203,6 +206,7 @@ static void maprequest(XEvent *e);
 static void monocle(Monitor *m);
 static void motionnotify(XEvent *e);
 static void movemouse(const Arg *arg);
+static void movefloating(const Arg *arg);
 static Client *nexttiled(Client *c);
 static void pop(Client *);
 static void propertynotify(XEvent *e);
@@ -215,6 +219,7 @@ static void restack(Monitor *m);
 static void rotatestack(const Arg *arg);
 static void run(void);
 static void runAutostart(void);
+static void scalefloating(const Arg *arg);
 static void scan(void);
 static int sendevent(Client *c, Atom proto);
 static void sendmon(Client *c, Monitor *m);
@@ -1305,6 +1310,29 @@ movemouse(const Arg *arg)
 	}
 }
 
+void
+movefloating(const Arg *arg)
+{
+	if (!selmon->sel)
+		return;
+	
+	if (!selmon->sel->isfloating)
+		return;
+
+	if (selmon->sel->isfullscreen)
+		return;
+
+	Client *c = selmon->sel;
+	if (arg->i == DIR_LEFT_RIGHT)
+	{
+		resize(c, c->x + arg->f, c->y, c->w, c->h, 0);
+	}
+	else if (arg->i == DIR_UP_DOWN)
+	{
+		resize(c, c->x, c->y + arg->f, c->w, c->h, 0);
+	}
+}
+
 Client *
 nexttiled(Client *c)
 {
@@ -1589,6 +1617,29 @@ void
 runAutostart(void) {
 	system("cd ~/dwm; ./autostart_blocking.sh");
 	system("cd ~/dwm; ./autostart.sh &");
+}
+
+void
+scalefloating(const Arg *arg)
+{
+	if (!selmon->sel)
+		return;
+	
+	if (!selmon->sel->isfloating)
+		return;
+
+	if (selmon->sel->isfullscreen)
+		return;
+
+	Client *c = selmon->sel;
+	if (arg->i == DIR_LEFT_RIGHT)
+	{
+		resize(c, c->x, c->y, c->w + arg->f, c->h, 0);
+	}
+	else if (arg->i == DIR_UP_DOWN)
+	{
+		resize(c, c->x, c->y, c->w, c->h + arg->f, 0);
+	}
 }
 
 void
