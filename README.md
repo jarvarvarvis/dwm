@@ -7,6 +7,13 @@ Requirements
 ------------
 In order to build dwm you need the Xlib header files.
 
+This config requires the following programs:
+- feh             (background)
+- picom           (compositor)
+- dex             (required for autostart)
+- greenclip       (required by rofi config, clipboard management)
+- dunst           (notification daemon)
+- rofi-power-menu (required by rofi config, power menu, https://github.com/jluttine/rofi-power-menu)
 
 Installation
 ------------

@@ -1,5 +1,5 @@
 configuration {
-	modi: "window,run,drun,clipboard:greenclip print";
+	modi: "window,run,drun,clipboard:greenclip print,p:rofi-power-menu";
 	font: "mono 10";
 	timeout {
 		action: "kb-cancel";
