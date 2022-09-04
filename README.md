@@ -14,6 +14,7 @@ This config requires the following programs:
 - greenclip       (required by rofi config, clipboard management)
 - dunst           (notification daemon)
 - rofi-power-menu (required by rofi config, power menu, https://github.com/jluttine/rofi-power-menu)
+- xsecurelock     (required for locking the screen, https://github.com/google/xsecurelock)
 
 Installation
 ------------

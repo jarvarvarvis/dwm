@@ -32,6 +32,10 @@ if which dunst &> /dev/null; then
 	dunst &
 fi
 
+# Start xss-lock
+LOCK_COMMAND="env XSECURELOCK_PASSWORD_PROMPT=asterisks XSECURELOCK_COMPOSITE_OBSCURER=0 XSECURELOCK_SHOW_DATETIME=1 xsecurelock"
+xss-lock $LOCK_COMMAND &
+
 # Kill previous instances of dwmsb and then start it again
 killall dwmsb
 ./dwmsb/dwmsb &
