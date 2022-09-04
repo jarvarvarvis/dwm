@@ -16,12 +16,15 @@ configuration {
     padding: 0;
     spacing: 0;
 
-    bg: #1d1f21;
-    bg-alt: #2d2f31;
-    fg: #FFFFFF;
-    fg-alt: #424242;
+    bg: #1d1f21ff;
+    bg-alt: #2d2f31ff;
+    fg: #ffffffff;
+    fg-alt: #424242ff;
 
     text-padding: 8px;
+    window-padding: 3px;
+    window-border: 1px;
+    scrollbar-width: 8px;
     visible-entries: 10;
 
     background-color: @bg;
@@ -30,6 +33,9 @@ configuration {
 
 window {
     transparency: "real";
+    padding: @window-padding;
+    border: @window-border;
+    border-color: @fg-alt;
 }
 
 mainbox {
@@ -42,6 +48,8 @@ inputbar {
 
 entry {
     padding: @text-padding;
+    placeholder: "Type to filter...";
+    placeholder-color: @fg-alt;
 }
 
 prompt {
@@ -56,7 +64,8 @@ listview {
 scrollbar {
     background-color: @bg-alt;
     handle-color: @fg;
-    margin: 0 0 0 6px;
+    handle-width: @scrollbar-width;
+    margin: 0 0 0 0;
 }
 
 element {
