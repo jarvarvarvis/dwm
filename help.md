@@ -85,6 +85,9 @@ Mod + Shift + [tag]         | Move the focused client to tag [tag]
 Mod + Ctrl + [tag]          | Toggle view for tag [tag] in the current tag
 Mod + Ctrl + Shift + [tag]  | Make the focused client also available in tag [tag]
 
+### Bar
+Mod + B                     | Toggle the bar
+
 ### Session
 
 Mod + Shift + e             | Quit session

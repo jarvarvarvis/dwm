@@ -198,7 +198,10 @@ static Key keys[] = {
 	TAGKEYS(                        XK_8,                                     7)
 	TAGKEYS(                        XK_9,                                     8)
 
-	// Quit dwm
+	// Toggle the bar
+	{ MODKEY,                       XK_b,                    togglebar,       {0} },
+
+	// Quit / Restart dwm
 	{ MODKEY|ShiftMask,             XK_e,                    quit,            {.i = 0} },
 	{ MODKEY|ShiftMask,             XK_r,                    quit,            {.i = 1} }
 };
